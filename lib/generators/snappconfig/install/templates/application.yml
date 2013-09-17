@@ -1,0 +1,14 @@
+# EXAMPLE CONFIGURATION
+
+blog_username: "admin"
+blog_password: "secret"
+secret_token: "024e1460a4fb8271e611d0f53811a382f1f6be121..."
+ENV: 
+    CUSTOM_1:"value 1"
+    CUSTOM_2:"value 2"
+development:
+  mailer_host: "localhost:3000"
+test:
+  mailer_host: "test.local"
+production:
+  mailer_host: "blog.example.com"
