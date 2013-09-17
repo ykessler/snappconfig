@@ -1,15 +1,14 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'snappconfig/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "snappconfig"
-  spec.version       = Snappconfig::VERSION
+  spec.version       = "0.0.5"
   spec.authors       = ["Yarin Kessler"]
   spec.email         = ["ykessler@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Easy Heroku-friendly Rails configuration with a single YAML file}
+  spec.summary       = %q{Easy Heroku-friendly Rails configuration with a single YAML file}
   spec.homepage      = ""
   spec.license       = "MIT"
 
