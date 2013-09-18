@@ -1,9 +1,9 @@
 
-namespace :configure do
+namespace :snappconfig do
   task :heroku, [:app] => :environment do   
-    yaml = Snappconfig.yaml
     puts "Passing application configuration to Heroku..."
-    puts `heroku config:set CONFIG_FILE='#{yaml}'`
+    shell_yaml = Snappconfig.shell_yaml
+    puts `heroku config:set CONFIG_FILE=#{shell_yaml}`
   end
 end
 

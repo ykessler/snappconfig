@@ -1,5 +1,4 @@
 require "rails"
-#require "yaml"
 
 CONFIG = {}
 
@@ -10,16 +9,10 @@ module Snappconfig
       
       begin
       
+        # Look for config file in ENV (For Heroku):
         if ENV['CONFIG_FILE']
-          
-          # ERB
-          ##config_file = ENV['CONFIG_FILE']
-          ##yaml = ERB.new(config_file).result
-          
-          # Non-ERB:
-          yaml = ENV['CONFIG_FILE']
-          
-          app_conf = yaml && YAML.load(yaml) || {}
+          app_conf = yaml && YAML.load(ENV['CONFIG_FILE']) || {}
+        # Else, load from file system:
         else
           app_conf = Snappconfig.raw
         end
