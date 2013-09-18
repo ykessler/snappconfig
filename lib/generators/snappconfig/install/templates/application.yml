@@ -1,4 +1,17 @@
-# EXAMPLE CONFIGURATION
+# APPLICATION CONFIGURATION
+# Should be git-ignored.
+# For examples, see: https://github.com/ykessler/snappconfig#examples
+
+sample_var: fallback_value
+development:
+  sample_var: dev_value  
+production:
+  sample_var: prod_value
+
+
+
+
+
 
 blog_username: "admin"
 blog_password: "secret"

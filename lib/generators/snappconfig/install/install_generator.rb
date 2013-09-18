@@ -7,6 +7,7 @@ module Snappconfig
     
       def create_configuration
         template "application.yml", "config/application.yml"
+        template "application.example.yml", "config/application.example.yml"
       end
 
       def ignore_configuration
