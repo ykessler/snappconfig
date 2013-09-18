@@ -1,22 +1,13 @@
 # Snappconfig
 
-TODO: Write a gem description
+Smarter Rails configuration that works with Heroku.
 
-## Installation
+## Usage
 
-Add this line to your application's Gemfile:
+1) Add it to your Gemfile and run `bundle` to install it:
 
     gem 'snappconfig'
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install snappconfig
-
-## Usage
 
 TODO: Write usage instructions here
 

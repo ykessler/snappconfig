@@ -6,10 +6,10 @@ Gem::Specification.new do |spec|
   spec.name          = "snappconfig"
   spec.version       = "0.0.2"
   spec.authors       = ["Yarin Kessler"]
-  spec.email         = ["ykessler@gmail.com"]
-  spec.description   = %q{Easy Heroku-friendly Rails configuration with a single YAML file}
-  spec.summary       = %q{Easy Heroku-friendly Rails configuration with a single YAML file}
-  spec.homepage      = ""
+  spec.email         = ["ykessler@appgrinders.com"]
+  spec.description   = %q{Smarter Heroku-friendly Rails configuration with a single YAML file}
+  spec.summary       = %q{Smarter Heroku-friendly Rails configuration with a single YAML file}
+  spec.homepage      = "https://github.com/ykessler/snappconfig"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
