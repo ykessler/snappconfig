@@ -6,40 +6,27 @@ module Snappconfig
   class Railtie < ::Rails::Railtie
   
     config.before_configuration do
-      
-      begin
-      
-        # Look for config file in ENV (For Heroku):
-        if ENV['CONFIG_FILE']
-          app_conf = yaml && YAML.load(ENV['CONFIG_FILE']) || {}
-        # Else, load from file system:
-        else
-          app_conf = Snappconfig.raw
-        end
-      
-        # Merge environment-specific values with defaults:
-        app_conf.deep_merge! app_conf.fetch(Rails.env, {})
 
-        # Assign ENV values:
-        if app_conf.has_key?('ENV')
-          app_conf['ENV'].each do |key, value|
-            ENV[key] = value.to_s unless value.kind_of? Hash
-          end
-          # Clear ENV values from CONFIG so we don't have duplicate data:
-          app_conf.delete('ENV')
-          app_conf.each do |key,value|
-            value.delete('ENV') if value.is_a?(Hash) && value.has_key?('ENV')
-          end
-        end
+      # Look for config file in ENV (For Heroku) or else load from file system:
+      app_conf = ENV['CONFIG_FILE'] ? YAML.load(ENV['CONFIG_FILE']) : Snappconfig.raw
+    
+      app_conf.deep_merge! app_conf.fetch('defaults', {})
+      app_conf.deep_merge! app_conf.fetch(Rails.env, {})
 
-        # Symbolize keys:
-        app_conf = recursively_symbolize_keys(app_conf)
-        # Apply to constant:
-        CONFIG.merge! app_conf
-      
-      rescue
-        raise #{}"Could not load configuration"
+      # Assign ENV values...
+      if app_conf.has_key?('ENV')
+        app_conf['ENV'].each do |key, value|
+          ENV[key] = value.to_s unless value.kind_of? Hash
+        end
+        # ... and clear ENV values from CONFIG so we don't have duplicate data:
+        app_conf.delete('ENV')
+        app_conf.each do |key,value|
+          value.delete('ENV') if value.is_a?(Hash) && value.has_key?('ENV')
+        end
       end
+
+      app_conf = recursively_symbolize_keys(app_conf)
+      CONFIG.merge! app_conf
       
     end
 
