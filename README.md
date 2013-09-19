@@ -26,9 +26,8 @@ This will create:
 - A default config file at `/config/application.yml`
 - A git-ignored config file for secrets at `/config/application.secrets.yml`
 
-( Why two files? Because [secrets don’t belong in source control](#best_practices). )
+(Why two files? Because [secrets don’t belong in source control](#best_practices).)
 
-TODO: FIX LINK
 
 ## Using it
 
