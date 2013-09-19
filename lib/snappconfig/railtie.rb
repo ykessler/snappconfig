@@ -13,7 +13,7 @@ module Snappconfig
       appconfig.deep_merge! appconfig.fetch('defaults', {})
       appconfig.deep_merge! appconfig.fetch(Rails.env, {})
 
-      check_required(app_config)
+      check_required(appconfig)
 
       # Assign ENV values...
       if appconfig.has_key?('ENV')
