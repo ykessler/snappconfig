@@ -26,7 +26,7 @@ This will create:
 - A default config file at `/config/application.yml`
 - A git-ignored config file for secrets at `/config/application.secrets.yml`
 
-(Why two files? Because [secrets don’t belong in source control](#best_practices) )
+( Why two files? Because [secrets don’t belong in source control](#best_practices). )
 
 TODO: FIX LINK
 
@@ -69,7 +69,7 @@ For example, the following files would be processed in order:
       mailer_host: "test.local"
     production:
       mailer_host: "blog.example.com"
-(**NOTE:** Default values can also be put under a 'defaults' group key)
+( **NOTE:** Default values can also be put under a 'defaults' group key. )
 
 ####Nested values:
     stripe: 
@@ -91,7 +91,7 @@ For example, the following files would be processed in order:
         BLOG_USERNAME: "admin"
         BLOG_PASSWORD: "secret"
 
-(**NOTE:** Values you put under an "ENV" key will be accessible in your app via `ENV['MY_VAR']` instead of `CONFIG[:my_var]`. These values can't be nested.)  
+( **NOTE:** Values you put under an "ENV" key will be accessible in your app via `ENV['MY_VAR']` instead of `CONFIG[:my_var]`. These values can't be nested. )  
 
 
 
