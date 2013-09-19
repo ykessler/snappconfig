@@ -3,8 +3,8 @@ require "snappconfig/railtie"
 module Snappconfig
   extend self
   
-  def snapp_files
-    @snapp_files ||= Dir.entries(Rails.root.join("config").to_s).grep(/(^snapp)(\.|\..*\.)(yml$)/).sort
+  def config_files
+    @config_files ||= Dir.entries(Rails.root.join("config").to_s).grep(/(^application)(\.|\..*\.)(yml$)/).sort
   end
   
   def merged_raw
@@ -12,15 +12,15 @@ module Snappconfig
       return @merged_raw
     else  
       @merged_raw = {}
-      snapp_files.each do | file_name |
-        file = Snappfile.new(file_name)
+      config_files.each do | file_name |
+        file = ConfigFile.new(file_name)
         @merged_raw.deep_merge! file.raw
       end
       return @merged_raw
     end
   end
   
-  class Snappfile
+  class ConfigFile
     
     def initialize(name)
       @name = name
