@@ -1,4 +1,3 @@
-require "shellwords"
 require "snappconfig/railtie"
 
 module Snappconfig
@@ -8,9 +7,9 @@ module Snappconfig
     @raw ||= yaml && YAML.load(yaml) || {}
   end
 
-  def shell_yaml
-    @shell_yaml ||= Shellwords.escape(yaml)
-  end
+  #def shell_yaml
+  #  @shell_yaml ||= Shellwords.escape(yaml)
+  #end
 
   def yaml
     @yaml ||= File.exist?(path) ? ERB.new(File.read(path)).result : nil
@@ -19,5 +18,6 @@ module Snappconfig
   def path
     @path ||= Rails.root.join("config", "application.yml")
   end
+  
   
 end
