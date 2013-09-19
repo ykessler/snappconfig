@@ -1,9 +1,0 @@
-# EXAMPLE CONFIGURATION 
-# Actual configuration should go in git-ignored `application.yml` file.
-# See: https://github.com/ykessler/snappconfig/blob/master/README.md
-
-sample_var: fallback_value
-development:
-  sample_var: dev_value
-production:
-  sample_var: prod_value

@@ -6,8 +6,8 @@ module Snappconfig
       # all public methods in here will be run in order
     
       def create_configuration
-        template "application.yml", "config/application.yml"
-        template "application.example.yml", "config/application.example.yml"
+        template "snapp.yml", "config/snapp.yml"
+        template "snapp.secrets.yml", "config/snapp.secrets.yml"
       end
 
       def ignore_configuration
@@ -16,7 +16,7 @@ module Snappconfig
             <<-EOF.strip_heredoc
 
             # Ignore application configuration.
-            /config/application.yml
+            /config/snapp.secrets.yml
             EOF
           end
         end

@@ -4,10 +4,11 @@ namespace :snappconfig do
   
   task :heroku, [:app] => :environment do   
     puts "Passing application configuration to Heroku..."
-    shell_yaml = Shellwords.escape(Snappconfig.yaml)
-    puts `heroku config:set CONFIG_FILE=#{shell_yaml}`
+    merged_yaml = Snappconfig.merged_raw.to_yaml
+    shell_yaml = Shellwords.escape(merged_yaml)
+    puts `heroku config:set SNAPP_CONFIG=#{shell_yaml}`
   end
-
+  
 end
 
 
