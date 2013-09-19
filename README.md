@@ -2,14 +2,14 @@
 
 Smarter Rails configuration that works with Heroku. Here's why you want it:
 
-- **Simple**- The only thing you edit is a single YAML file. // The only thing you edit is [some YAML] // No code to write- just edit your YAML
+- **Simple**- No setup code. Just edit some YAML and you're ready to roll.
 - **Slick**- Nest your configuration values as deep as you want to, and grab them with standard hash notation (e.g. `CONFIG[:this][:that]`)
-- **Secure**- Creates a git-ignored config file, so you don’t have to worry about checking any secrets into source control.
-- **Flexible**- Write to the nestable `CONFIG` hash *or* to [single-level] `ENV` variables- we won’t tell you how to live.
+- **Secure**- Lets you separate protected values into a git-ignored config file, so you don’t have to worry about checking any secrets into source control. // Lets you handle protected values like passwords and tokens separately, // in separate git-ignored files, so you don't have to worry about checking any secrets into source control.// promotes secure best practices by allowing you to separate
+- **Flexible**- Write to the nestable `CONFIG` hash *or* to [single-level] `ENV` variables- we don’t tell you how to live.
 - **Heroku-friendly**- Use the custom rake task to feed your configuration to Heroku!
 - **Best of the rest**- Based on Ryan Bates’ [Railscast](something) and inspired by [Figaro](something),
 
-## Installation  
+## Installing it 
   
   
   
@@ -17,38 +17,33 @@ Smarter Rails configuration that works with Heroku. Here's why you want it:
 
     gem 'snappconfig'
 
-2) Use the generator to create the config file:
+2) Use the generator to create config files (optional):
 
     $ rails generate snappconfig:install
 
 This will create:  
 
-- A git-ignored config file `/config/application.yml`
-- An example config file `/config/application.example.yml` that *should* be stored in source, so that developers will know what values are needed.
+- A default config file at `/config/application.yml`
+- A git-ignored config file [for secrets] at `/config/application.secrets.yml`
 
+(Why two files? Because [secrets don’t belong in source control]() )
 
-## Usage
+TODO: FIX LINK
+
+## Using it
+
+Accessing your configuration values is simple. Just use standard hash notation:
 
     token = CONFIG[:secret_token]
-    mailer_host = CONFIG[:mail_settings][:host]
+    stripe_secret = CONFIG[:stripe][:secret_key]
+    
+Or if you wrote a value to ENV, access it in the way you normally would:
 
-## Examples
+    token = ENV['SECRET_TOKEN']
 
 
-###In `/config/application.yml`:
+## YAML file examples
 
-
-####Basic:
-secret_token: "024e1460a4fb8271e611d0f53811a382f1f6be121..."
-ENV: 
-    CUSTOM_1:"value 1"
-    CUSTOM_2:"value 2"
-development:
-  mailer_host: "localhost:3000"
-test:
-  mailer_host: "test.local"
-production:
-  mailer_host: "blog.example.com"
 
 
 ####Environment specfic (with defaults)
@@ -59,13 +54,9 @@ production:
       mailer_host: "test.local"
     production:
       mailer_host: "blog.example.com"
-(**NOTE:** Default values can also be put in a group named 'defaults')
+(**NOTE:** Default values can also be put under a group named 'defaults')
 
 ####Nested values:
-    aws: 
-      access_key_id: 224bb493288ee170b13e
-      secret_key: 12d925784adfb7cb1e42
-      s3_bucket: example_dev
     stripe: 
       publishable_key: 5883eeb3cd43cee52585
       secret_key: 0df20bf20903c4404968 
@@ -87,6 +78,22 @@ production:
 
 (**NOTE:** Values you put under an "ENV" key will be accessible in your app via `ENV['MY_VAR']` instead of `CONFIG[:my_var]`. These values can't be nested.)  
 
+##Security best practices
+
+You could easily put all your configuration into a single `application.yml` file. However, best practices dictate that protected values like **passwords and tokens should not be stored in source control.** 
+
+###git-ignore
+
+An obvious option would be to git-ignore your config file. However, that sledgehammer approach comes with its own problems.
+
+
+
+###Multiple files and git-ignore
+
+
+###The _REQUIRED keyword
+
+
 
 
 ## How it works // Deploy it.
@@ -95,6 +102,9 @@ Snappconfig looks for a `/config/application.yml` file in your app- if it doesn'
 Just add __ file to your app.
 
 ### Hold up- what about Heroku? 
+
+Git-ignored configuration files become problematic when working with Heroku. It’s bad practice to commit config files to source control, but Heroku is a read-only file system so if you’re not using Git you’re out of luck.
+
 
 Heroku's file system is readonly, so unless a file is checked in through git you can't add it on your own. "But I thought you said config files in[to] source control was a bad idea." I did- glad you're paying attention. But don't worry, Snappconfig's got you covered- just run the custom rake task:
 
