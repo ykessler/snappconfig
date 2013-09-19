@@ -26,7 +26,7 @@ This will create:
 - A default config file at `/config/application.yml`
 - A git-ignored config file for secrets at `/config/application.secrets.yml`
 
-(Why two files? Because [secrets don’t belong in source control]() )
+(Why two files? Because [secrets don’t belong in source control](#best_practices) )
 
 TODO: FIX LINK
 
@@ -45,9 +45,9 @@ Or if you wrote values to ENV, just do:
 
 ## Multiple files
 
-The number of config files you use is up to you. You can stuff it all in a single config file, or use multiple files for different versions, environments, etc.
+The number of config files you use is up to you. You can stuff it all in a single file, or use multiple files for different versions, environments, etc.
 
-Snappconfig will load all files in the /config directory that start with **"application."** and end with **".yml"**, and merge them down in alphabetical order (minus the file extension), with later values taking precedence.
+Snappconfig will load all files in the `/config` directory that start with **"application."** and end with **".yml"**, and merge them down in alphabetical order (minus the file extension), with later values taking precedence.
 
 For example, the following files would be processed in order:
 
@@ -88,8 +88,8 @@ For example, the following files would be processed in order:
 ####ENV values:
 
     ENV: 
-        CUSTOM_1:"value 1"
-        CUSTOM_2:"value 2"
+        BLOG_USERNAME: "admin"
+        BLOG_PASSWORD: "secret"
 
 (**NOTE:** Values you put under an "ENV" key will be accessible in your app via `ENV['MY_VAR']` instead of `CONFIG[:my_var]`. These values can't be nested.)  
 
@@ -97,14 +97,13 @@ For example, the following files would be processed in order:
 
 
 
-
+<a name='best_practices'/>
 ##Best practices
+
 
 There's nothing to stop you from putting all your configuration into a single `application.yml` file. However, best practices dictate that protected values like **passwords and tokens should not be stored in source control.** 
 
-
-An obvious solution would be to git-ignore your config file. However, that approach can lead to other problems. Without a config file, other developers won't know what configuration values are expected, and you won't have a way to share default values.  
-(Whats the problem)
+An obvious solution would be to git-ignore your config file, but that approach is less than ideal. Application configurations typically consist of a mix of secret values that should be protected and non-secret values that are useful to share. Without any config file developers won't know what values are expected or what default values should be.
 
 ###Keeping secrets separate
 
@@ -143,7 +142,7 @@ Now we've got a complete configuration without compromising anything!
 
 The `_REQUIRED` keyword is really handy. You can use it to stub out an entire config file template. If any of the required values are not present at runtime Snappconfig will raise an error, ensuring you never go live without a complete configuration.
 
-###What about Heroku?
+###Working with Heroku
 
 Git-ignored files become problematic when working with Heroku. The Heroku file system is read-only, so if your config files aren't deployed in source control you won't be able to add them in separately.
 
@@ -151,20 +150,8 @@ But don't worry, Snappconfig's got you covered- just run the custom rake task:
 
     $ rake snappconfig:heroku
 
-and your app configuration will be automatically passed into Heroku for you! Slick... 
+and your app configuration will be automatically passed into Heroku for you. Slick!
 
-### Working with Heroku
-
-
----
----
-
-
-
-
-# Notes
-
-(None)
 
 
 ## Contributing
