@@ -4,7 +4,7 @@ module Snappconfig
   extend self
   
   def config_files
-    @config_files ||= Dir.entries(Rails.root.join("config").to_s).grep(/(^application)(\.|\..*\.)(yml$)/).sort
+    @config_files ||= Dir.entries(Rails.root.join("config").to_s).grep(/(^application)(\.|\..*\.)(yml$)/).sort { |x,y| x.chomp(".yml") <=> y.chomp(".yml") }
   end
   
   def merged_raw
