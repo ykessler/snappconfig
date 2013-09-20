@@ -2,22 +2,22 @@
 
 Smarter Rails configuration that works with Heroku. Here's why it rocks:
 
-- **Simple**- No setup code. Just edit some YAML and you're ready to roll.
-- **Slick**- Supports lists and nested values. Organize your configuration into logical heirarchies and access them with standard hash notation (e.g. `CONFIG[:this][:that]`)
-- **Secure**- Lets you handle protected values like passwords and tokens separately, so you don't have to worry about checking any secrets into source control.
-- **Flexible**- Write to the nestable `CONFIG` hash *or* to  `ENV` variables- we don’t tell you how to live.
-- **Heroku-friendly**- Use the custom rake task to feed your configuration to Heroku!
-- **Best of the rest**- Based on Ryan Bates’ [Railscast](http://railscasts.com/episodes/85-yaml-configuration-revised) and inspired by [Figaro](https://github.com/laserlemon/figaro)
+- **It's Simple**. There's no setup code. Just **edit some YAML** and you're ready to roll.
+- It supports **nested values and lists**. Use the data structures you want and access them with standard hash notation (e.g. `CONFIG[:this][:that]`)
+- It promotes **secure best practices** that keep your secrets out of source control.
+- It lets you write to a nestable `CONFIG` hash *or* to  `ENV` variables- we don’t tell you how to live.
+- It's **Heroku-friendly**.
+- It's based on Ryan Bates’ excellent [Railscast](http://railscasts.com/episodes/85-yaml-configuration-revised) and inspired by [Figaro](https://github.com/laserlemon/figaro).
 
 ## Installation
   
   
   
-1) Add it to your Gemfile and run `bundle` to install
+**1)** Add it to your Gemfile and run `bundle` to install
 
     gem 'snappconfig'
 
-2) Use the generator to create config files (optional):
+**2)** Use the generator to create config files (optional):
 
     $ rails generate snappconfig:install
 
@@ -36,7 +36,7 @@ To access config values, just use standard hash notation:
     token = CONFIG[:secret_token]
     stripe_secret = CONFIG[:stripe][:secret_key]
     
-Or if you wrote values to ENV, just do:
+Or if you wrote values to **ENV**, get them the way you normally would:
 
     token = ENV['SECRET_TOKEN']
 
@@ -44,7 +44,7 @@ Or if you wrote values to ENV, just do:
 
 ## Multiple files
 
-The number of config files you use is up to you. You can stuff it all in a single file, or use multiple files for different versions, environments, etc.
+The number of config files you use is up to you. Stuff it all in a single file, or use multiple files for different versions, environments, etc.
 
 Snappconfig will load all files in the `config/` directory that start with **"application."** and end with **".yml"**, and merge them down in alphabetical order (minus the file extension), with later values taking precedence.
 
@@ -102,7 +102,7 @@ For example, the following files would be processed in order:
 
 There's nothing to stop you from putting all your configuration into a single `application.yml` file. However, best practices dictate that protected values like **passwords and tokens should not be stored in source control.** 
 
-An obvious solution would be to git-ignore your config file, but that approach is less than ideal. Application configurations typically consist of a mix of secret values that should be protected and non-secret values that are useful to share. Without any config file developers won't know what values are expected or what default values should be.
+An obvious solution would be to git-ignore your config file, but that approach has its problems. Not all values are need to be secret, and without any config file developers won't know what values are expected or what the defaults should be.
 
 ###Keeping secrets separate
 
@@ -128,7 +128,7 @@ For instance, if we already have a mailer configuration that works for our app, 
 
 Using the `_REQUIRED` keyword, we indicate values we expect to be included in the configuration, even though they're not in this file. 
 
-In this case, we'll fulfill that obligation by using the git-ignored file created by the generator: 
+We can then fulfill that obligation by using a git-ignored file that just stores our secrets: 
 
 **application.secrets.yml:**
 
@@ -143,13 +143,13 @@ The `_REQUIRED` keyword is really handy. You can use it to stub out an entire co
 
 ###Working with Heroku
 
-Git-ignored files become an issue when you're running on Heroku. The Heroku file system is read-only, so if your config files aren't deployed in source control you won't be able to add them in separately.
+The Heroku file system is read-only, so if you're git-ignoring your config files you won't be able to add them in manually.
 
-Don't worry though, Snappconfig's got you covered- just run the custom rake task:
+But don't worry, Snappconfig's got you covered- just run the custom rake task:
 
     $ rake snappconfig:heroku
 
-and your app configuration will be automatically passed into Heroku for you. Slick!
+and your app configuration will automatically be passed into Heroku for you. Slick!
 
 
 
