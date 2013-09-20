@@ -11,7 +11,7 @@ module Snappconfig
       if !is_rake_task
         
         # Look for CONFIG file in ENV (For Heroku) or else load from file system:
-        appconfig = ENV['CONFIG'] ? YAML.load(ENV['CONFIG']) : Snappconfig.merged_raw.clone
+        appconfig = ENV['CONFIG'] ? YAML.load(ENV['CONFIG']) : Snappconfig.merged_raw.deep_dup
 
         appconfig.deep_merge! appconfig.fetch('defaults', {})
         appconfig.deep_merge! appconfig.fetch(Rails.env, {})
