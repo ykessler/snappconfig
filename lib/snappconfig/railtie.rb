@@ -6,31 +6,33 @@ module Snappconfig
   class Railtie < ::Rails::Railtie
   
     config.before_configuration do
-
-      # Look for CONFIG file in ENV (For Heroku) or else load from file system:
-      appconfig = ENV['CONFIG'] ? YAML.load(ENV['CONFIG']) : Snappconfig.merged_raw.clone
-    
-      appconfig.deep_merge! appconfig.fetch('defaults', {})
-      appconfig.deep_merge! appconfig.fetch(Rails.env, {})
-
-      Snappconfig.environments.each do |environment|
-        appconfig.delete(environment)
-      end
-
-      check_required(appconfig)
-
-      # Assign ENV values...
-      if appconfig.has_key?('ENV')
-        appconfig['ENV'].each do |key, value|
-          ENV[key] = value.to_s unless value.kind_of? Hash
-        end
-        # ... and clear ENV values from CONFIG so we don't have duplicate data:
-        appconfig.delete('ENV')
-      end
-
-      appconfig = recursively_symbolize_keys(appconfig)
-      CONFIG.merge! appconfig
       
+      is_rake_task = defined? Rake
+      if !is_rake_task
+        
+        # Look for CONFIG file in ENV (For Heroku) or else load from file system:
+        appconfig = ENV['CONFIG'] ? YAML.load(ENV['CONFIG']) : Snappconfig.merged_raw.clone
+
+        appconfig.deep_merge! appconfig.fetch('defaults', {})
+        appconfig.deep_merge! appconfig.fetch(Rails.env, {})
+
+        Snappconfig.environments.each { |environment| appconfig.delete(environment) }
+
+        check_required(appconfig)
+
+        # Assign ENV values and then delete them from CONFIG so we don't have duplicate data:
+        if appconfig.has_key?('ENV')
+          appconfig['ENV'].each do |key, value|
+            ENV[key] = value.to_s unless value.kind_of? Hash
+          end
+          appconfig.delete('ENV')
+        end
+
+        appconfig = recursively_symbolize_keys(appconfig)
+        CONFIG.merge! appconfig
+        
+      end
+
     end
 
     rake_tasks do
@@ -43,7 +45,7 @@ module Snappconfig
       
       hash.each_pair do |key,value|
         if value == '_REQUIRED'
-          raise "The configuration value #{key} is required but was not supplied. Check your application.yml file(s)."
+          raise "The configuration value '#{key}' is required but was not supplied. Check your application.yml file(s)."
         elsif value.is_a?(Hash)
           check_required(value) 
         end
