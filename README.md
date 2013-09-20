@@ -42,20 +42,6 @@ Or if you wrote values to **ENV**, get them the way you normally would:
 
 
 
-## Multiple files
-
-The number of config files you use is up to you. Stuff it all in a single file, or use multiple files for different versions, environments, etc.
-
-Snappconfig will load all files in the `config/` directory that start with **"application."** and end with **".yml"**, and merge them down in alphabetical order (minus the file extension), with later values taking precedence.
-
-For example, the following files would be processed in order:
-
-- **application**.yml
-- **application.2**.yml
-- **application.test**.yml
-
-
-
 ## YAML file examples
 
 
@@ -94,6 +80,17 @@ For example, the following files would be processed in order:
 
 
 
+## Multiple files
+
+The number of config files you use is up to you. Stuff it all in a single file, or use multiple files for different versions, environments, etc.
+
+Snappconfig will load all files in the `config/` directory that start with **"application."** and end with **".yml"**, and merge them down in alphabetical order (minus the file extension), with later values taking precedence.
+
+For example, the following files would be processed in order:
+
+- **application**.yml
+- **application.2**.yml
+- **application.test**.yml
 
 
 <a name='best_practices'/>
@@ -102,7 +99,7 @@ For example, the following files would be processed in order:
 
 There's nothing to stop you from putting all your configuration into a single `application.yml` file. However, best practices dictate that protected values like **passwords and tokens should not be stored in source control.** 
 
-An obvious solution would be to git-ignore your config file, but that approach has its problems. Not all values need to be secret, and without any config file developers won't know what values are expected or what the defaults should be.
+An obvious solution would be to git-ignore the config file, but that approach has its problems. Not all values need to be secret, and without any config file developers won't know what values are expected or what the defaults should be.
 
 ###Separating your secrets
 
