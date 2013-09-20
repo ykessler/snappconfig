@@ -1,6 +1,6 @@
 # Snappconfig
 
-Smarter Rails configuration that works with Heroku. Here's why you want it:
+Smarter Rails configuration that works with Heroku. Here's why it rocks:
 
 - **Simple**- No setup code. Just edit some YAML and you're ready to roll.
 - **Slick**- Supports lists and nested values. Organize your configuration into logical heirarchies and access them with standard hash notation (e.g. `CONFIG[:this][:that]`)
@@ -9,7 +9,7 @@ Smarter Rails configuration that works with Heroku. Here's why you want it:
 - **Heroku-friendly**- Use the custom rake task to feed your configuration to Heroku!
 - **Best of the rest**- Based on Ryan Bates’ [Railscast](http://railscasts.com/episodes/85-yaml-configuration-revised) and inspired by [Figaro](https://github.com/laserlemon/figaro)
 
-## Installing it 
+## Installation
   
   
   
@@ -23,13 +23,13 @@ Smarter Rails configuration that works with Heroku. Here's why you want it:
 
 This will create:  
 
-- A default config file at `/config/application.yml`
-- A git-ignored config file for secrets at `/config/application.secrets.yml`
-
-(Why two files? Because [secrets don’t belong in source control](#best_practices).)
+- A default config file at `config/application.yml`
+- A git-ignored config file for secrets at `config/application.secrets.yml`
 
 
-## Using it
+
+
+## Usage
 
 To access config values, just use standard hash notation:
 
@@ -46,7 +46,7 @@ Or if you wrote values to ENV, just do:
 
 The number of config files you use is up to you. You can stuff it all in a single file, or use multiple files for different versions, environments, etc.
 
-Snappconfig will load all files in the `/config` directory that start with **"application."** and end with **".yml"**, and merge them down in alphabetical order (minus the file extension), with later values taking precedence.
+Snappconfig will load all files in the `config/` directory that start with **"application."** and end with **".yml"**, and merge them down in alphabetical order (minus the file extension), with later values taking precedence.
 
 For example, the following files would be processed in order:
 
@@ -90,7 +90,7 @@ For example, the following files would be processed in order:
         BLOG_USERNAME: "admin"
         BLOG_PASSWORD: "secret"
 
-( **NOTE:** Values you put under an "ENV" key will be accessible in your app via `ENV['MY_VAR']` instead of `CONFIG[:my_var]`. These values can't be nested. )  
+( **NOTE:** Values you put under an **"ENV"** key will be accessible in your app via `ENV['MY_VAR']` instead of `CONFIG[:my_var]`. These values can't be nested. )  
 
 
 
@@ -143,9 +143,9 @@ The `_REQUIRED` keyword is really handy. You can use it to stub out an entire co
 
 ###Working with Heroku
 
-Git-ignored files become problematic when working with Heroku. The Heroku file system is read-only, so if your config files aren't deployed in source control you won't be able to add them in separately.
+Git-ignored files become an issue when you're running on Heroku. The Heroku file system is read-only, so if your config files aren't deployed in source control you won't be able to add them in separately.
 
-But don't worry, Snappconfig's got you covered- just run the custom rake task:
+Don't worry though, Snappconfig's got you covered- just run the custom rake task:
 
     $ rake snappconfig:heroku
 
