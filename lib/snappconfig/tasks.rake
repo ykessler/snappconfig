@@ -2,7 +2,7 @@ require "shellwords"
 
 namespace :snappconfig do
   
-  task :heroku, [:app] => :environment do   
+  task :heroku do   
     puts "Passing application configuration to Heroku..."
     merged_yaml = Snappconfig.merged_raw.to_yaml
     shell_yaml = Shellwords.escape(merged_yaml)
