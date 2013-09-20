@@ -2,7 +2,7 @@
 
 Smarter Rails configuration that works with Heroku. Here's why it rocks:
 
-- **It's Simple**. There's no setup code. Just **edit some YAML** and you're ready to roll.
+- **It's Simple**. There's no setup code. Just **add some YAML** and you're ready to roll.
 - It supports **nested values and lists**. Use the data structures you want and access them with standard hash notation (e.g. `CONFIG[:this][:that]`)
 - It promotes **secure best practices** that keep your secrets out of source control.
 - It lets you write to a nestable `CONFIG` hash *or* to  `ENV` variables- we don’t tell you how to live.
