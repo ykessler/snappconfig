@@ -102,9 +102,9 @@ For example, the following files would be processed in order:
 
 There's nothing to stop you from putting all your configuration into a single `application.yml` file. However, best practices dictate that protected values like **passwords and tokens should not be stored in source control.** 
 
-An obvious solution would be to git-ignore your config file, but that approach has its problems. Not all values are need to be secret, and without any config file developers won't know what values are expected or what the defaults should be.
+An obvious solution would be to git-ignore your config file, but that approach has its problems. Not all values need to be secret, and without any config file developers won't know what values are expected or what the defaults should be.
 
-###Keeping secrets separate
+###Separating your secrets
 
 A better approach is to separate the secret values from the configuration values that are useful to share. Snappconfig makes this easy with multi-file support and the `_REQUIRED` keyword.
 
