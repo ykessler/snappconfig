@@ -125,7 +125,7 @@ For instance, if we already have a mailer configuration that works for our app, 
 
 Using the `_REQUIRED` keyword, we indicate values we expect to be included in the configuration, even though they're not in this file. 
 
-We can then fulfill that obligation by using a git-ignored file that just stores our secrets: 
+We can then fill in those values with a git-ignored file that only stores our secrets: 
 
 **application.secrets.yml:**
 
@@ -134,7 +134,7 @@ We can then fulfill that obligation by using a git-ignored file that just stores
       smtp_settings:
         password: 8675309
 
-Now we've got a complete configuration without compromising anything!
+And there it is- configuration without compromise!
 
 The `_REQUIRED` keyword is really handy. You can use it to stub out an entire config file template. If any of the required values are not present at runtime Snappconfig will raise an error, ensuring you never go live without a complete configuration.
 
