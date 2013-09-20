@@ -4,11 +4,11 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "snappconfig"
-  spec.version       = "0.0.1"
+  spec.version       = "0.0.2"
   spec.authors       = ["Yarin Kessler"]
   spec.email         = "ykessler@appgrinders.com"
   spec.summary       = %q{Smarter Rails configuration with YAML}
-  spec.description   = %q{Smarter, Heroku-friendly Rails configuration using YAML}
+  spec.description   = %q{Smarter, Heroku-friendly Rails configuration with YAML}
   spec.homepage      = "https://github.com/ykessler/snappconfig"
   spec.license       = "MIT"
 

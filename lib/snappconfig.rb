@@ -20,6 +20,10 @@ module Snappconfig
     end
   end
   
+  def environments
+    @environments ||= Dir.entries(Rails.root.join("config","environments").to_s).grep(/\.rb$/).map { |fname| fname.chomp!(".rb") }
+  end
+  
   class ConfigFile
     
     def initialize(name)

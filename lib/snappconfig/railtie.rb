@@ -13,6 +13,10 @@ module Snappconfig
       appconfig.deep_merge! appconfig.fetch('defaults', {})
       appconfig.deep_merge! appconfig.fetch(Rails.env, {})
 
+      Snappconfig.environments.each do |environment|
+        appconfig.delete(environment)
+      end
+
       check_required(appconfig)
 
       # Assign ENV values...
@@ -22,9 +26,6 @@ module Snappconfig
         end
         # ... and clear ENV values from CONFIG so we don't have duplicate data:
         appconfig.delete('ENV')
-        appconfig.each do |key,value|
-          value.delete('ENV') if value.is_a?(Hash) && value.has_key?('ENV')
-        end
       end
 
       appconfig = recursively_symbolize_keys(appconfig)
