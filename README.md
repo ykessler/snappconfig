@@ -46,10 +46,7 @@ You can access `CONFIG` from anywhere in the app, including initializers and the
 
     module MyApp
       class Application < Rails::Application
-        config.action_mailer.default_url_options = CONFIG[:mailer][:default_url_options]
-        config.action_mailer.delivery_method = CONFIG[:mailer][:delivery_method]
         config.action_mailer.smtp_settings = {
-          :domain               => CONFIG[:mailer][:smtp_settings][:domain],
           :user_name            => CONFIG[:mailer][:smtp_settings][:user_name],
           :password             => CONFIG[:mailer][:smtp_settings][:password]
           ...
