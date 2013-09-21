@@ -50,9 +50,7 @@ You can access `CONFIG` from anywhere in the app, including initializers and the
           :user_name            => CONFIG[:mailer][:smtp_settings][:user_name],
           :password             => CONFIG[:mailer][:smtp_settings][:password]
           ...
-          }
-      end
-    end
+
 
 
 ## YAML file examples
