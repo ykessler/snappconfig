@@ -31,22 +31,39 @@ This will create:
 
 ## Usage
 
-To access config values, just use standard hash notation:
+To access config values, simply read from `CONFIG` using standard hash notation:
 
     token = CONFIG[:secret_token]
     stripe_secret = CONFIG[:stripe][:secret_key]
     
-Or if you wrote values to **ENV**, get them the way you normally would:
+Or if you wrote values to `ENV`, get them the way you normally would:
 
     token = ENV['SECRET_TOKEN']
 
+You can access `CONFIG` from anywhere in the app, including initializers and the application.rb file:
+
+**application.rb example:**
+
+    module MyApp
+      class Application < Rails::Application
+        config.action_mailer.default_url_options = CONFIG[:mailer][:default_url_options]
+        config.action_mailer.delivery_method = CONFIG[:mailer][:delivery_method]
+        config.action_mailer.smtp_settings = {
+          :domain               => CONFIG[:mailer][:smtp_settings][:domain],
+          :user_name            => CONFIG[:mailer][:smtp_settings][:user_name],
+          :password             => CONFIG[:mailer][:smtp_settings][:password]
+          ...
+          }
+      end
+    end
 
 
 ## YAML file examples
 
 
 
-####Environment specfic (with defaults)
+**Environment specfic (with defaults):**
+
     mailer_host: "localhost:3000"
     development:
       mailer_host: "localhost:3000"
@@ -56,7 +73,8 @@ Or if you wrote values to **ENV**, get them the way you normally would:
       mailer_host: "blog.example.com"
 ( **NOTE:** Default values can also be put under a 'defaults' group key. )
 
-####Nested values:
+**Nested values:**
+
     stripe: 
       publishable_key: 5883eeb3cd43cee52585
       secret_key: 0df20bf20903c4404968 
@@ -70,7 +88,8 @@ Or if you wrote values to **ENV**, get them the way you normally would:
         publishable_key: e753e42725fe43d3994a
         secret_key: e8787290a07b1abecae9
 
-####ENV values:
+
+**ENV values:**
 
     ENV: 
         BLOG_USERNAME: "admin"
@@ -134,7 +153,7 @@ We can then fill in those values with a git-ignored file that only stores our se
       smtp_settings:
         password: 8675309
 
-And there it is- configuration without compromise!
+And there you have it- configuration without compromise!
 
 The `_REQUIRED` keyword is really handy. You can use it to stub out an entire config file template. If any of the required values are not present at runtime Snappconfig will raise an error, ensuring you never go live without a complete configuration.
 
@@ -148,7 +167,9 @@ But don't worry, Snappconfig's got you covered- just run the custom rake task:
 
 and your app configuration will automatically be passed into Heroku for you. Slick!
 
+## Miscellaneous
 
+- Configuration is only loaded when an application starts up. Remember to restart your app whenever you make changes to your YAML files.
 
 ## Contributing
 
