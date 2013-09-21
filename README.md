@@ -31,7 +31,7 @@ This will create:
 
 ## Usage
 
-To access config values, simply read from `CONFIG` using standard hash notation:
+To access configuration values, simply read from `CONFIG` using standard hash notation:
 
     token = CONFIG[:secret_token]
     stripe_secret = CONFIG[:stripe][:secret_key]
@@ -169,7 +169,7 @@ and your app configuration will automatically be passed into Heroku for you. Sli
 
 ## Miscellaneous
 
-- Configuration is only loaded when an application starts up. Remember to restart your app whenever you make changes to your YAML files.
+- Configuration is only loaded when an application starts up. Remember to **restart your app** whenever you make changes to your YAML files.
 
 ## Contributing
 
