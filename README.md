@@ -156,11 +156,18 @@ The `_REQUIRED` keyword is really handy. You can use it to stub out an entire co
 
 The Heroku file system is read-only, so if you're git-ignoring your config files you won't be able to add them in manually.
 
-But don't worry, Snappconfig's got you covered- just run the custom rake task:
+But don't worry, Snappconfig provides a rake task to load your config files into Heroku. Just run:
 
     $ rake heroku:config:load
 
-and your app configuration will automatically be passed into Heroku for you. Slick!
+or:
+
+    $ rake heroku:config:load[my_app]
+
+to target a specific app. 
+
+Slick!
+
 
 ## Miscellaneous
 
