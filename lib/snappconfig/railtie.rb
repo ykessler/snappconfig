@@ -5,7 +5,18 @@ CONFIG = {}
 module Snappconfig
   class Railtie < ::Rails::Railtie
   
+    
+  
     config.before_configuration do
+      
+      test_logger = Logger.new(STDOUT)
+
+      if defined? Rake
+        test_logger.info('CHECK: railtie.rb - Rake YES defined')
+      else
+        test_logger.info('CHECK: railtie.rb - Rake NO defined')
+      end
+      
         
       # Look for CONFIG file in ENV (For Heroku) or else load from file system:
       appconfig = ENV['CONFIG'] ? YAML.load(ENV['CONFIG']) : Snappconfig.merged_raw.deep_dup
