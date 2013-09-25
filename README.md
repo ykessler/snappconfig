@@ -19,7 +19,7 @@ Smarter Rails configuration that works with Heroku. Here's why it rocks:
 
 **2)** Use the generator to create config files (optional):
 
-    $ rails generate snappconfig:install
+    $ rails generate snappconfig
 
 This will create:  
 
