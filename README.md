@@ -103,8 +103,8 @@ Snappconfig will load all files in the `config/` directory that start with **"ap
 For example, the following files would be processed in order:
 
 - **application**.yml
-- **application.2**.yml
 - **application.test**.yml
+- **application.test.2**.yml
 
 
 <a name='best_practices'/>
