@@ -158,7 +158,7 @@ The Heroku file system is read-only, so if you're git-ignoring your config files
 
 But don't worry, Snappconfig's got you covered- just run the custom rake task:
 
-    $ rake snappconfig:heroku
+    $ rake heroku:config:load
 
 and your app configuration will automatically be passed into Heroku for you. Slick!
 
