@@ -1,5 +1,9 @@
 require "rails"
 
+# Fancy never-nil hash prevents NoMethodErrors during nested access of empty CONFIG object. 
+# Need this to get through Heroku's asset precompile stage, when ENV vars are not available. 
+# - https://devcenter.heroku.com/articles/rails-asset-pipeline
+# - http://stackoverflow.com/a/170240/165673
 CONFIG = Hash.new(&(p=lambda{|h,k| h[k] = Hash.new(&p)}))
 
 module Snappconfig
