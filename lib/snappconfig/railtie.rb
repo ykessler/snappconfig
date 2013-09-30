@@ -46,7 +46,6 @@ module Snappconfig
       
       hash.each_pair do |key,value|
         if value == '_REQUIRED'
-          hash[key] = nil
           logger.warn "The configuration value '#{key}' is required but was not supplied. Check your application.yml file(s)."
         elsif value.is_a?(Hash)
           check_required(value) 
