@@ -15,7 +15,7 @@ module Snappconfig
       appconfig = ENV['CONFIG'] ? YAML.load(ENV['CONFIG']) : Snappconfig.merged_raw.deep_dup
 
       appconfig.deep_merge! appconfig.fetch('defaults', {})
-      appconfig.deep_merge! appconfig.fetch(Rails.env, {})
+      appconfig.deep_merge! appconfig.fetch(Rails.env.to_s, {})
 
       Snappconfig.environments.each { |environment| appconfig.delete(environment) }
 
@@ -46,7 +46,8 @@ module Snappconfig
       
       hash.each_pair do |key,value|
         if value == '_REQUIRED'
-          logger.warn "The configuration value '#{key}' is required but was not supplied. Check your application.yml file(s)."
+          hash[key] = nil
+          logger.warn "Snappconfig missing configuration value: '#{key}' is required for '#{Rails.env.to_s}' environment. Check your application.yml file(s)."
         elsif value.is_a?(Hash)
           check_required(value) 
         end
