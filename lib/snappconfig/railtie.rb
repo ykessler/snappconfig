@@ -19,7 +19,7 @@ module Snappconfig
 
       Snappconfig.environments.each { |environment| appconfig.delete(environment) }
 
-      #check_required(appconfig)
+      check_required(appconfig)
 
       # Assign ENV values and then delete them from CONFIG so we don't have duplicate data:
       if appconfig.has_key?('ENV')
@@ -37,8 +37,6 @@ module Snappconfig
     rake_tasks do
       load "snappconfig/tasks.rake"
     end
-    
-    #private
     
     def check_required(hash)
       
