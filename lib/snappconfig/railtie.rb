@@ -38,7 +38,7 @@ module Snappconfig
       load "snappconfig/tasks.rake"
     end
     
-    private
+    #private
     
     def check_required(hash)
       

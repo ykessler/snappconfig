@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "snappconfig"
-  spec.version       = "0.1.9"
+  spec.version       = "0.1.10"
   spec.authors       = ["Yarin Kessler"]
   spec.email         = "ykessler@appgrinders.com"
   spec.summary       = %q{Smarter Rails configuration with YAML}
