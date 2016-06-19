@@ -1,18 +1,18 @@
 # Snappconfig
 
-Smarter Rails configuration that works with Heroku. Here's why it rocks:
+Smarter Rails configuration that works with Heroku:
 
-- **It's Simple**. There's no setup code. Just **add some YAML** and you're ready to roll.
-- It supports **nested values and lists**. Use the data structures you want and access them with standard hash notation (e.g. `CONFIG[:this][:that]`)
-- It promotes **secure best practices** that keep your secrets out of source control.
-- It lets you write to a nestable `CONFIG` hash *or* to  `ENV` variables- we don’t tell you how to live.
-- It's **Heroku-friendly**.
-- It's based on Ryan Bates’ excellent [Railscast](http://railscasts.com/episodes/85-yaml-configuration-revised) and inspired by [Figaro](https://github.com/laserlemon/figaro).
+- No setup code- just **add some YAML**.
+- Supports **nested values and lists**. Use the data structures you want and access them with standard hash notation (e.g. `CONFIG[:this][:that]`)
+- Promotes **secure best practices** that keep your secrets out of source control.
+- Lets you write to a nestable `CONFIG` hash *or* to  `ENV` variables.
+- **Heroku-friendly**.
+- Based on Ryan Bates’ excellent [Railscast](http://railscasts.com/episodes/85-yaml-configuration-revised) and inspired by [Figaro](https://github.com/laserlemon/figaro).
 
 ## Installation
-  
-  
-  
+
+
+
 **1)** Add it to your Gemfile and run `bundle` to install
 
     gem 'snappconfig'
@@ -35,7 +35,7 @@ To access configuration values, simply read from `CONFIG` using standard hash no
 
     token = CONFIG[:secret_token]
     stripe_secret = CONFIG[:stripe][:secret_key]
-    
+
 Or if you wrote values to `ENV`, get them the way you normally would:
 
     token = ENV['SECRET_TOKEN']
@@ -70,23 +70,23 @@ You can access `CONFIG` from anywhere in the app, including initializers and the
 
 **Nested values:**
 
-    stripe: 
+    stripe:
       publishable_key: 5883eeb3cd43cee52585
-      secret_key: 0df20bf20903c4404968 
-      
+      secret_key: 0df20bf20903c4404968
+
     development:
-      stripe: 
+      stripe:
         publishable_key: 5883eeb3cd43cee52585
         secret_key: 0df20bf20903c4404968      
     production:
-      stripe: 
+      stripe:
         publishable_key: e753e42725fe43d3994a
         secret_key: e8787290a07b1abecae9
 
 
 **ENV values:**
 
-    ENV: 
+    ENV:
         BLOG_USERNAME: "admin"
         BLOG_PASSWORD: "secret"
 
@@ -111,7 +111,7 @@ For example, the following files would be processed in order:
 ##Best practices
 
 
-There's nothing to stop you from putting all your configuration into a single `application.yml` file. However, best practices dictate that protected values like **passwords and tokens should not be stored in source control.** 
+There's nothing to stop you from putting all your configuration into a single `application.yml` file. However, best practices dictate that protected values like **passwords and tokens should not be stored in source control.**
 
 An obvious solution would be to git-ignore the config file, but that approach has its problems. Not all values need to be secret, and without any config file developers won't know what values are expected or what the defaults should be.
 
@@ -137,9 +137,9 @@ For instance, if we already have a mailer configuration that works for our app, 
         authentication: 'plain'
         enable_starttls_auto: true
 
-Using the `_REQUIRED` keyword, we indicate values we expect to be included in the configuration, even though they're not in this file. 
+Using the `_REQUIRED` keyword, we indicate values we expect to be included in the configuration, even though they're not in this file.
 
-We can then fill in those values with a git-ignored file that only stores our secrets: 
+We can then fill in those values with a git-ignored file that only stores our secrets:
 
 **application.secrets.yml:**
 
@@ -148,7 +148,7 @@ We can then fill in those values with a git-ignored file that only stores our se
       smtp_settings:
         password: 8675309
 
-And there you have it- configuration without compromise!
+And there you have it- configuration without compromise
 
 The `_REQUIRED` keyword is really handy. You can use it to stub out an entire config file template. If any of the required values are not present at runtime Snappconfig will raise an error, ensuring you never go live without a complete configuration.
 
@@ -156,7 +156,7 @@ The `_REQUIRED` keyword is really handy. You can use it to stub out an entire co
 
 The Heroku file system is read-only, so if you're git-ignoring your config files you won't be able to add them in manually.
 
-But don't worry, Snappconfig provides a rake task to load your config files into Heroku. Just run:
+To fix that, Snappconfig provides a rake task to load your config files into Heroku. Just run:
 
     $ rake heroku:config:load
 
@@ -164,9 +164,7 @@ or:
 
     $ rake heroku:config:load[my_app]
 
-to target a specific app. 
-
-Slick!
+to target a specific app.
 
 
 ## Miscellaneous
