@@ -158,13 +158,11 @@ The Heroku file system is read-only, so if you're git-ignoring your config files
 
 To fix that, Snappconfig provides a rake task to load your config files into Heroku. Just run:
 
-    $ rake heroku:config:load
-
-or:
-
     $ rake heroku:config:load[my_app]
 
-to target a specific app.
+NOTE: If using zsh you'll need to [wrap the args in quotes](https://thoughtbot.com/blog/how-to-use-arguments-in-a-rake-task):
+
+    $ rake 'heroku:config:load[my_app]'
 
 
 ## Miscellaneous
